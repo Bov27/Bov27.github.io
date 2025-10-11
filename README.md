@@ -1,2 +1,3 @@
-# Bov27.github.io
-No se como mas hacerlo
+theme: jekyll-theme-minimal
+title: Octocat's homepage
+description: Bookmark this to keep an eye on my project updates!
