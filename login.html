@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para ti 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      color: #333;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* 💕 Corazones flotantes */
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      color: #ff6fae;
+      font-size: 20px;
+      animation: floatUp linear infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1) rotate(0deg);
+        opacity: 0.9;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh) scale(1.3) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3em;
+      margin-bottom: 0.5em;
+      color: #c94b7d;
+      z-index: 2;
+    }
+
+    .login-box {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 400px;
+      transition: all 0.3s ease;
+      z-index: 2;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 10px;
+      outline: none;
+      font-size: 1em;
+      background: #f9f9f9;
+    }
+
+    button {
+      background-color: #ff6f91;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1.1em;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #ff3e6c;
+    }
+
+    .error {
+      color: #b71c1c;
+      margin-top: 10px;
+      font-weight: 500;
+    }
+
+    .success {
+      animation: fadeOut 1.5s forwards;
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; transform: scale(1); }
+      to { opacity: 0; transform: scale(1.1); }
+    }
+  </style>
+</head>
+<body>
+  <h1>🌸 Hola amorcito🌸</h1>
+
+  <div class="login-box" id="loginBox">
+    <p>Completa esto para entrar 💕</p>
+    <input type="text" id="name" placeholder="Tu nombre">
+    <input type="date" id="birthday">
+    <input type="text" id="place" placeholder="¿Dónde nos conocimos?">
+    <button onclick="checkLogin()">Entrar</button>
+    <div class="error" id="error-msg"></div>
+  </div>
+
+  <script>
+    // 💖 Corazones animados
+    const body = document.body;
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.textContent = '💖';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = (10 + Math.random() * 25) + 'px';
+      heart.style.animationDuration = (5 + Math.random() * 7) + 's';
+      body.appendChild(heart);
+      setTimeout(() => heart.remove(), 12000);
+    }
+    setInterval(createHeart, 400);
+
+    // 💌 Verificación
+    function checkLogin() {
+      const name = document.getElementById('name').value.trim().toLowerCase();
+      const birthday = document.getElementById('birthday').value;
+      const place = document.getElementById('place').value.trim().toLowerCase();
+      const error = document.getElementById('error-msg');
+      const loginBox = document.getElementById('loginBox');
+
+      const correctName = "ashlie";
+      const correctBirthday = "2000-10-17";
+      const correctPlace = "mo ranch";
+
+      console.log("👉 Nombre:", name);
+      console.log("👉 Fecha:", birthday);
+      console.log("👉 Lugar:", place);
+
+      let wrongFields = [];
+      if (name !== correctName) wrongFields.push("el nombre");
+      if (birthday !== correctBirthday) wrongFields.push("la fecha");
+      if (place !== correctPlace) wrongFields.push("el lugar");
+
+      if (wrongFields.length === 0) {
+        localStorage.setItem('nombre', name);
+        error.style.color = "#4CAF50";
+        error.textContent = "✨ Todo correcto, amor... entrando 💕";
+        loginBox.classList.add("success");
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 1500);
+      } else {
+        error.style.color = "#b71c1c";
+        error.textContent = `Parece que ${wrongFields.join(" y ")} no coincide 😢`;
+      }
+    }
+  </script>
+
+      <audio id="song" src="audio/cancion.mp3" autoplay></audio>
+
+</body>
+</html>

@@ -1,0 +1,638 @@
+@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&display=swap');
+
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #ffe6eb, #fff3f5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    overflow-x: hidden; 
+    overflow-y: visible; 
+    transition: background 2s ease-in-out;
+}
+
+.fade-in {
+    text-align: center;
+    animation: fade 2s ease-in;
+    width: 100%;
+    max-width: 900px;
+}
+
+@keyframes fade {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Saludo Animado (Diseño Bonito y Centrado) --- */
+#greeting {
+    font-family: 'Charm', cursive; /* NUEVO: Fuente más elegante y romántica */
+    font-size: 3.5rem; /* Aumentado para mayor impacto visual */
+    font-weight: 700; /* Asegura que la fuente se vea bien */
+    color: #ff007f; /* Rosa/Rojo más vibrante */
+    text-shadow: 0 0 20px rgba(255, 105, 180, 1), 0 0 40px rgba(255, 192, 203, 0.8); /* Glow más fuerte y mágico */
+    margin: 40px 0;
+    
+    /* Propiedades de la animación Typewriter */
+    border-right: 4px solid rgba(255, 105, 180, 0.75); /* Cursor de máquina de escribir más grueso */
+    white-space: nowrap; 
+    overflow: hidden; 
+    animation: 
+        typewriter 2.8s steps(40, end) forwards, /* Duración ajustada */
+        blink-cursor 0.75s step-end infinite;
+    width: fit-content; /* Esencial para el efecto de escritura */
+    max-width: 90%; 
+    z-index: 50; 
+    position: relative; 
+    letter-spacing: 2px; /* Espacio entre letras para más estilo */
+}
+
+/* Animación de la máquina de escribir */
+@keyframes typewriter {
+    from { width: 0 }
+    to { width: 100% }
+}
+
+@keyframes blink-cursor {
+    from, to { border-color: transparent }
+    50% { border-color: rgba(255, 105, 180, 0.75); }
+}
+
+/* NUEVO: Estilo y Animación después de que termina de escribirse */
+.greeting-finished {
+    animation: pulse 1.5s ease-out infinite alternate !important; /* Pulso suave e infinito */
+    border-right: none !important; /* Quita el cursor intermitente */
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); text-shadow: 0 0 20px rgba(255, 105, 180, 1); }
+    100% { transform: scale(1.02); text-shadow: 0 0 30px rgba(255, 105, 180, 1), 0 0 50px rgba(255, 192, 203, 0.8); }
+}
+
+/* 📦 Tarjetas en columna */
+.card {
+    width: 70%;
+    max-width: 700px;
+    margin: 20px auto;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 25px;
+    padding: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+    animation: float 6s ease-in-out infinite alternate;
+    transition: transform 0.3s ease;
+    z-index: 20; 
+    position: relative; 
+}
+
+.card:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+
+/* Nueva animación de flotación para las tarjetas */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+
+/* Títulos de cada tarjeta */
+.card h3 {
+    color: #d63384;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(255, 182, 193, 0.4);
+    text-align: center; /* Centra todos los títulos h3 de las tarjetas */
+}
+
+/* 💌 Lista de amor (Centrada) */
+.love-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.love-list li {
+    background: #ffeaf1;
+    margin: 6px 0;
+    padding: 10px;
+    border-radius: 12px;
+    color: #c2185b;
+    font-size: 1rem;
+    box-shadow: 0 0 10px rgba(255, 182, 193, 0.4);
+    text-align: center; /* Centra el texto dentro de cada elemento de la lista */
+}
+
+/* Mensaje romántico */
+.message-card p {
+    font-size: 1.1rem;
+    color: #8a004f;
+    line-height: 1.6;
+    white-space: pre-line;
+    animation: fade 2s ease-in;
+    text-align: center; 
+}
+
+/* 🎞️ Video y Spotify */
+.card iframe,
+.card video {
+    border-radius: 15px;
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+/* Slider */
+.slider {
+    width: 90%;
+    max-width: 900px;
+    overflow: hidden;
+    border-radius: 20px;
+    margin: 40px auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    z-index: 20; 
+    position: relative;
+}
+
+.slider-track {
+    display: flex;
+    animation: scroll 40s linear infinite;
+}
+
+.slider-track img {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    margin: 0 10px;
+    border-radius: 15px;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.slider-track img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Letras */
+.lyrics {
+    margin: 25px 0;
+    font-size: 1.4rem;
+    color: #ff5fa2;
+    text-shadow: 0 0 15px rgba(255, 192, 203, 0.5);
+    z-index: 20; 
+    position: relative;
+}
+
+/* 🌸 Flores animadas */
+.flowers {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+    overflow: hidden;
+    z-index: -1;
+}
+
+
+
+@keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+}
+/* Corazones */
+.heart {
+    position: fixed;
+    bottom: -20px;
+    font-size: 20px;
+    color: #ff66a3;
+    animation: heartFloat linear forwards;
+    opacity: 0.8;
+    z-index: 1;
+}
+@keyframes heartFloat {
+    from { transform: translateY(0) scale(1); opacity: 1; }
+    to { transform: translateY(-110vh) scale(1.5); opacity: 0; }
+}
+
+/* --- Destellos --- */
+.sparkle {
+    position: absolute; 
+    width: 5px;
+    height: 5px;
+    background-color: #ffd700; 
+    border-radius: 50%;
+    box-shadow: 0 0 5px #ffd700, 0 0 10px #ff007f;
+    animation: sparkle-float 3s ease-in-out infinite alternate;
+    pointer-events: none; 
+    z-index: 10;
+}
+
+@keyframes sparkle-float {
+    0% { transform: translateY(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-20px) scale(0.5); opacity: 0; }
+}
+
+/* --- Botón Flotante de Carta --- */
+.floating-card-btn {
+    position: absolute; 
+    z-index: 100; 
+    background: #ff7bac;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px; 
+    height: 50px;
+    font-size: 20px;
+    line-height: 50px; 
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.6);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: none; 
+}
+
+.floating-card-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(255, 105, 180, 0.8);
+}
+
+
+/* --- Modal y Carta --- */
+.card-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.card-modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.card-content {
+    position: relative;
+    width: 90%;
+    max-width: 400px;
+    height: 400px;
+    perspective: 1000px;
+    z-index: 1001; 
+}
+
+/* Estilos del sobre */
+.envelope {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    animation: shake 0.5s ease-in-out 2;
+}
+
+/* Tapa superior del sobre */
+.envelope-top {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    background: #e57373; 
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    z-index: 2; 
+    transform-origin: top;
+    transition: transform 1s;
+}
+
+/* Al abrir, la tapa se voltea y su z-index pasa a ser menor que la carta */
+.card-modal.active .envelope:hover .envelope-top {
+    transform: rotateX(180deg) translateZ(-1px); 
+    z-index: 0; 
+}
+
+/* Cuerpo del sobre (parte frontal) - CUBRE LA CARTA */
+.envelope-front {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffcdd2; 
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    z-index: 1; 
+}
+
+/* Cuerpo del sobre (parte trasera) */
+.envelope-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #ff8a80; 
+    z-index: 0;
+}
+
+/* La carta en sí: Centrada y oculta (desplazada 100% hacia abajo) */
+.letter {
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%) translateY(100%); 
+    width: 80%;
+    height: 80%;
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    font-family: 'Poppins', sans-serif;
+    color: #444;
+    line-height: 1.5;
+    z-index: 3; 
+    transition: transform 1s 0.5s; 
+    box-sizing: border-box; 
+    overflow-y: auto;
+}
+
+/* MOSTRAR la carta: al hacer hover, regresa a la posición central (translateY(0)) */
+.card-modal.active .envelope:hover .letter {
+    transform: translate(-50%, -50%) translateY(0); 
+    z-index: 4; 
+}
+
+.letter p {
+    font-style: italic;
+    color: #c2185b;
+    margin-bottom: 30px;
+    white-space: pre-wrap;
+}
+
+.signature {
+    text-align: right;
+    font-weight: bold;
+    color: #e91e63;
+}
+
+.close-btn {
+    position: absolute;
+    top: -25px;
+    right: 0;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1002; 
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* --- Mariposas de Fondo --- */
+.background-butterflies {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; 
+    overflow: hidden; 
+    z-index: -2; 
+}
+
+.background-butterfly {
+    position: absolute;
+    width: 80px; 
+    height: 80px; /* Tamaño de las mariposas (cuadrado para el corazón) */
+    opacity: 0.6; 
+    animation: floatAndFlutter linear infinite; 
+    filter: drop-shadow(0 0 5px rgba(255, 200, 220, 0.5)); 
+    transition: transform 0.5s ease-out; 
+
+    /* FORMA DE CORAZÓN SUAVE Y CURVO */
+    
+    object-fit: cover; 
+    border-radius: 0; 
+}
+
+@keyframes floatAndFlutter {
+    0% { 
+        transform: translateY(0) translateX(0) scale(0.7) rotate(0deg); 
+        opacity: 0.2; 
+    }
+    25% { 
+        transform: translateY(-20vh) translateX(10vw) scale(0.9) rotate(20deg); 
+        opacity: 0.7; 
+    }
+    50% { 
+        transform: translateY(-50vh) translateX(-15vw) scale(1.1) rotate(-10deg); 
+        opacity: 1; 
+    }
+    75% { 
+        transform: translateY(-80vh) translateX(5vw) scale(0.8) rotate(30deg); 
+        opacity: 0.7; 
+    }
+    100% { 
+        transform: translateY(-110vh) translateX(0) scale(0.6) rotate(0deg); 
+        opacity: 0.2; 
+    }
+}
+
+    /* --- Deseo de Cumpleaños --- */
+.birthday-wish-card {
+    text-align: center;
+    background: #fff0f5; /* Un tono rosado más suave */
+    border: 3px solid #ff007f;
+}
+
+#wish-button {
+    background: #ff007f;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 20px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.1s;
+    box-shadow: 0 4px 10px rgba(255, 0, 127, 0.4);
+}
+
+#wish-button:hover {
+    background: #c2185b;
+    transform: translateY(-2px);
+}
+
+#wish-button:disabled {
+    background: #8ac926;
+    cursor: default;
+    box-shadow: none;
+}
+
+#wish-message {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #4CAF50; /* Color verde de éxito */
+    transition: opacity 1s ease;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+}
+
+.hidden-message {
+    max-height: 0 !important;
+    opacity: 0 !important;
+}
+
+#wish-message p {
+    color: #c2185b;
+    text-shadow: 0 0 5px rgba(255, 182, 193, 0.4);
+}
+
+/* --- Contenedor de Confeti --- */
+.confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 999; /* Asegura que esté por encima de todo */
+    overflow: hidden;
+}
+
+/* Base del Confeti */
+.confetti-container::before,
+.confetti-container::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-repeat: repeat;
+    background-size: 50px 50px; /* Tamaño de las piezas */
+    animation: fall 15s linear infinite;
+}
+
+/* Confeti Primario (Colores Rosa, Púrpura, Oro) */
+.confetti-container::before {
+    background-image: 
+        radial-gradient(circle at 10% 20%, #ff69b4 5px, transparent 5px),
+        radial-gradient(circle at 30% 40%, #ffdab9 5px, transparent 5px),
+        radial-gradient(circle at 50% 10%, #ee82ee 5px, transparent 5px),
+        radial-gradient(circle at 70% 30%, #ffd700 5px, transparent 5px),
+        radial-gradient(circle at 90% 50%, #ff69b4 5px, transparent 5px);
+}
+
+/* Confeti Secundario (Colores Blanco, Melocotón) */
+.confetti-container::after {
+    background-image: 
+        radial-gradient(circle at 15% 35%, white 5px, transparent 5px),
+        radial-gradient(circle at 45% 55%, #ffe4e1 5px, transparent 5px),
+        radial-gradient(circle at 65% 25%, white 5px, transparent 5px),
+        radial-gradient(circle at 85% 45%, #ffc0cb 5px, transparent 5px);
+    animation-delay: 7.5s; /* Para que caiga intercalado */
+}
+
+/* Animación de caída (Añádela al bloque de @keyframes si no existe) */
+@keyframes fall {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 0% 100vh; }
+}
+
+/* --- Deseo de Cumpleaños (NUEVOS) --- */
+.birthday-wish-card {
+    text-align: center;
+    background: #fff0f5; 
+    border: 3px solid #ff007f;
+}
+
+#wish-button {
+    background: #ff007f;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 20px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.1s;
+    box-shadow: 0 4px 10px rgba(255, 0, 127, 0.4);
+    z-index: 30; /* Asegura que el botón esté sobre el confeti inicial */
+}
+
+#wish-button:hover {
+    background: #c2185b;
+    transform: translateY(-2px);
+}
+
+#wish-button:disabled {
+    background: #8ac926;
+    cursor: default;
+    box-shadow: none;
+}
+
+#wish-message {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #4CAF50; 
+    transition: opacity 1s ease;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+}
+
+.hidden-message {
+    max-height: 0 !important;
+    opacity: 0 !important;
+}
+
+#wish-message p {
+    color: #c2185b;
+    text-shadow: 0 0 5px rgba(255, 182, 193, 0.4);
+}
+
+/* --- Confeti de Explosión (NUEVO) --- */
+.confetti-piece {
+    position: absolute;
+    width: 8px; 
+    height: 12px;
+    opacity: 0; 
+    transform: translate(0, 0) rotate(0deg); 
+    animation: confetti-burst 2.5s ease-out forwards;
+    z-index: 1000; /* Asegura que esté por encima de casi todo */
+    will-change: transform, opacity; /* Optimización de rendimiento */
+}
+
+@keyframes confetti-burst {
+    0% {
+        opacity: 1;
+        transform: translate(0, 0) rotate(0deg); /* Posición inicial (botón) */
+    }
+    10% {
+        transform: translate(var(--x-end), calc(-1 * var(--y-end))) rotate(var(--rotation)); /* Explosión inicial hacia arriba */
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--x-end), 100vh) rotate(calc(var(--rotation) + 360deg)); /* Caída completa */
+        opacity: 0;
+    }
+}

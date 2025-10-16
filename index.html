@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Para Ti 💖</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="flowers"></div>
+    <div class="hearts"></div>
+    
+    <div class="background-butterflies"></div>
+
+    <h2 id="greeting"></h2>
+
+    <section class="card spotify-card">
+        <h3>Se que tú me hiciste una playlist, esta es la mia hacia ti <3
+        </h3>
+        <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/4LaSeyQk0Vffx6AEViqEkm?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </section>
+
+    <section class="card love-list">
+        <h3>💌 Cosas que me encantan de ti</h3>
+        <ul>
+            <li>Tus ojitos preciosos :D</li>
+            <li>Que siempre me das calma a pesar de todo.</li>
+            <li>Siempre encuentras una forma de hacerme reir jiji. </li>
+            <li>La paciencia que me tienes.</li>
+            <li>Que me siento muy querido incluso desde la distancia.</li>
+            <li>y simplemente tú 💖</li>
+        </ul>
+    </section>
+
+    <section class="card message-card">
+        <h3>💫 Un Mensaje Para Ti</h3>
+        <p>
+            Como te lo he mencionado en varios videos que te he enviado, sinceramente no se como expresarte lo mucho que te quiero desde la distancia , asi que 
+            de esta forma intento mostrarte un poco lo mucho que te aprecio , además de que quiero que sepas desde que estamos juntos tú le has dado un sentido más a mi vida,
+            a tal punto que no hay dia en que no piense en ti , quisiera estar a tu lado todos los dias pero por el momento no es posible, pero incluso asi quiero que sepas 
+            que tu eres demasiado importante para mi, me gusta todo de ti , desde tu enojo hasta tu risa jiji , no olvides que siempre voy a estar para ti sin importar el que ,
+            finalmente solo quiero decirte que ojala lo nuestro dure mucho , te amo demasiado , muchos besos y abrazos y feliz cumpleaños!!!
+        </p>
+    </section>
+
+
+     
+    <section class="card birthday-wish-card">
+    <h3>Haz un Deseo de Cumpleaños ✨</h3>
+    <button id="wish-button">Presiona para Pedir un Deseo</button>
+    <div id="wish-message" class="hidden-message">
+        <p>Tu deseo está concedido. ¡Que tengas el cumpleaños más feliz del mundo! 💖</p>
+    </div>
+    </section>
+
+    <div class="slider">
+        <div class="slider-track">
+            <img src="images/foto1.jpg" alt="Foto 1">
+            <img src="images/foto2.jpg" alt="Foto 2">
+            <img src="images/foto3.jpg" alt="Foto 3">
+            <img src="images/foto4.jpg" alt="Foto 4">
+            <img src="images/foto5.jpg" alt="Foto 5">
+            <img src="images/foto6.jpg" alt="Foto 5">
+            <img src="images/foto7.jpg" alt="Foto 5">
+            <img src="images/foto8.jpg" alt="Foto 5">
+
+            <img src="images/foto1.jpg" alt="Foto 1">
+            <img src="images/foto2.jpg" alt="Foto 2">
+            <img src="images/foto3.jpg" alt="Foto 3">
+            <img src="images/foto4.jpg" alt="Foto 4">
+            <img src="images/foto5.jpg" alt="Foto 5">
+            <img src="images/foto6.jpg" alt="Foto 5">
+            <img src="images/foto7.jpg" alt="Foto 5">
+            <img src="images/foto8.jpg" alt="Foto 5">
+
+        </div>
+    </div>
+
+    <audio id="song" src="audio/cancion1.mp3" autoplay></audio>
+    <div id="lyrics" class="lyrics"></div>
+    </div>
+
+    <script>
+        const nombre = localStorage.getItem('nombre');
+        const nombreParaSaludo = nombre || "Ashlie";
+        
+        // Función de máquina de escribir modificada para aceptar un 'callback' al finalizar
+        function typeWriterEffect(element, text, speed, callback) {
+            let i = 0;
+            element.textContent = '';
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                } else if (callback) {
+                    // Ejecuta la acción (callback) cuando el texto está completo
+                    callback(); 
+                }
+            }
+            type();
+        }
+
+        // 1. Saludo más animado
+        const greetingElement = document.getElementById('greeting');
+        const fullGreeting = `Hola ${nombreParaSaludo.charAt(0).toUpperCase() + nombreParaSaludo.slice(1)}, feliz cumpleaños mi amorcito ✨💖`;
+        
+        if (!nombre) {
+            // window.location.href = "login.html"; 
+        }
+        
+        // Llamada con el callback para el nuevo diseño
+        typeWriterEffect(greetingElement, fullGreeting, 70, () => {
+            // Aplica la clase para el efecto de pulso y remover el cursor de escritura
+            greetingElement.classList.add('greeting-finished');
+        }); 
+
+
+        // 2. Fondo animado
+        const colors = ["#ffe6eb", "#fff3f5", "#ffe4f2", "#f9ecff", "#eaf7ff", "#fff5e6"];
+        let colorIndex = 0; 
+        setInterval(() => {
+            document.body.style.background = `linear-gradient(135deg, ${colors[colorIndex]}, ${colors[(colorIndex+1)%colors.length]})`;
+            colorIndex = (colorIndex + 1) % colors.length;
+        }, 8000);
+
+        // 3. Letras sincronizadas
+        fetch("lyrics.json")
+            .then(res => res.json())
+            .then(data => {
+                const audio = document.getElementById("song");
+                const lyrics = document.getElementById("lyrics");
+                audio.ontimeupdate = () => {
+                    const t = audio.currentTime;
+                    const line = data.find((l, i) => 
+                        t >= l.time && 
+                        (i === data.length - 1 || t < data[i + 1].time)
+                    );
+                    if (line) lyrics.textContent = line.text;
+                };
+            });
+
+        // 4. 🌺 Flores animadas
+        const flowerContainer = document.querySelector('.flowers');
+        for (let j = 0; j < 15; j++) { 
+            const f = document.createElement('div');
+            f.classList.add('flower');
+            f.style.left = Math.random() * 100 + '%';
+            f.style.animationDelay = Math.random() * 10 + 's';
+            f.style.animationDuration = 10 + Math.random() * 15 + 's';
+            f.style.transform = `scale(${0.5 + Math.random() * 0.8})`;
+            flowerContainer.appendChild(f);
+        }
+
+        // 5. 💞 Corazones flotantes
+        const hearts = document.querySelector('.hearts');
+        setInterval(() => {
+            const h = document.createElement('div');
+            h.className = 'heart';
+            h.textContent = '💗';
+            h.style.left = Math.random() * 100 + 'vw';
+            h.style.animationDuration = 4 + Math.random() * 4 + 's';
+            hearts.appendChild(h);
+            setTimeout(() => h.remove(), 7000);
+        }, 900);
+
+
+        // 6. ✨ Botones interactivos de "Carta" (NUEVO y CORREGIDO con movimiento y rebote)
+        const cardModal = document.createElement('div');
+        cardModal.className = 'card-modal';
+        cardModal.innerHTML = `
+            <div class="card-content">
+                <span class="close-btn">×</span>
+                <div class="envelope">
+                    <div class="envelope-top"></div>
+                    <div class="envelope-back"></div>
+                    <div class="letter">
+                        <p id="card-message">Mensaje...</p>
+                        <div class="signature">- Tu Amor</div>
+                    </div>
+                    <div class="envelope-front"></div>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(cardModal);
+
+        const messages = [
+            "Mi amor, eres la persona más increíble que he conocido. Tu risa es mi canción favorita.",
+            "Cada día a tu lado es un regalo. Gracias por llenar mi vida de tanta felicidad.",
+            "Feliz cumpleaños, preciosa. Eres la razón de mis sonrisas y el motor de mis sueños.",
+            "Recuerda que te amo inmensamente. Que este día esté lleno de alegría, como tú.",
+            "Hoy y siempre, celebro tu existencia. Eres mi estrella, mi sol y mi luna. ¡Te amo!"
+        ];
+
+        document.querySelector('.close-btn').onclick = () => {
+            cardModal.classList.remove('active');
+        };
+
+        const activeFloatingButtons = []; // Array para guardar los botones activos
+
+        function createFloatingButton() {
+            const bodyScrollHeight = document.body.scrollHeight;
+            const bodyScrollWidth = document.body.scrollWidth;
+            
+            const button = document.createElement('button');
+            button.className = 'floating-card-btn';
+            button.textContent = '💌';
+            
+            // Posición inicial aleatoria
+            button.x = Math.random() * (bodyScrollWidth - 100); 
+            button.y = Math.random() * (bodyScrollHeight - 100);
+            button.style.left = button.x + 'px';
+            button.style.top = button.y + 'px';
+
+            // Velocidad y dirección aleatorias
+            button.dx = (Math.random() - 0.5) * 2; 
+            button.dy = (Math.random() - 0.5) * 2;
+
+            button.onclick = () => {
+                const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                document.getElementById('card-message').textContent = randomMessage;
+                cardModal.classList.add('active');
+                button.remove(); 
+                const index = activeFloatingButtons.indexOf(button);
+                if (index > -1) {
+                    activeFloatingButtons.splice(index, 1); 
+                }
+            };
+
+            document.body.appendChild(button);
+            activeFloatingButtons.push(button); 
+
+            setTimeout(() => {
+                if (activeFloatingButtons.includes(button)) {
+                    button.remove();
+                    const index = activeFloatingButtons.indexOf(button);
+                    if (index > -1) {
+                        activeFloatingButtons.splice(index, 1);
+                    }
+                }
+            }, 10000); 
+        }
+
+        // Función para animar el movimiento de todos los botones activos
+        function animateFloatingButtons() {
+            const bodyScrollHeight = document.body.scrollHeight;
+            const bodyScrollWidth = document.body.scrollWidth;
+
+            activeFloatingButtons.forEach(button => {
+                button.x += button.dx;
+                button.y += button.dy;
+
+                if (button.x + button.offsetWidth > bodyScrollWidth || button.x < 0) {
+                    button.dx *= -1; 
+                    button.x = Math.max(0, Math.min(button.x, bodyScrollWidth - button.offsetWidth)); 
+                }
+                if (button.y + button.offsetHeight > bodyScrollHeight || button.y < 0) {
+                    button.dy *= -1; 
+                    button.y = Math.max(0, Math.min(button.y, bodyScrollHeight - button.offsetHeight)); 
+                }
+
+                button.style.left = button.x + 'px';
+                button.style.top = button.y + 'px';
+            });
+
+            requestAnimationFrame(animateFloatingButtons); 
+        }
+
+        setInterval(createFloatingButton, 2500);
+        animateFloatingButtons();
+
+        // 7. ✨ Destellos animados
+        const body = document.body;
+        function createSparkle() {
+            const bodyScrollHeight = document.body.scrollHeight; 
+            const bodyScrollWidth = document.body.scrollWidth; 
+            
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            
+            sparkle.style.left = Math.random() * bodyScrollWidth + 'px';
+            sparkle.style.top = Math.random() * bodyScrollHeight + 'px';
+            
+            sparkle.style.animationDelay = Math.random() * 2 + 's';
+            body.appendChild(sparkle);
+            setTimeout(() => sparkle.remove(), 4000); 
+        }
+        setInterval(createSparkle, 300);
+
+        // 8. 🦋 Mariposas de Fondo (NUEVO)
+        const backgroundButterfliesContainer = document.querySelector('.background-butterflies');
+        const butterflyImages = ['images/imagen1.png', 'images/imagen2.png', 'images/imagen3.png']; // Necesitarás guardar estas imágenes
+
+        function createBackgroundButterfly() {
+            const butterfly = document.createElement('img');
+            butterfly.src = butterflyImages[Math.floor(Math.random() * butterflyImages.length)];
+            butterfly.classList.add('background-butterfly');
+            
+            // Posición inicial aleatoria en la parte inferior o superior
+            const startEdge = Math.random() < 0.5 ? 'top' : 'bottom';
+            if (startEdge === 'top') {
+                butterfly.style.top = '0';
+                butterfly.style.transform = `translateY(-100%) rotate(${Math.random() * 360}deg)`; // Empieza fuera de pantalla
+            } else {
+                butterfly.style.bottom = '0';
+                butterfly.style.transform = `translateY(100%) rotate(${Math.random() * 360}deg)`; // Empieza fuera de pantalla
+            }
+            butterfly.style.left = Math.random() * 100 + 'vw';
+            
+            butterfly.style.animationDelay = Math.random() * 5 + 's';
+            butterfly.style.animationDuration = 15 + Math.random() * 10 + 's'; // Vuelan más lento
+            backgroundButterfliesContainer.appendChild(butterfly);
+
+            setTimeout(() => {
+                butterfly.remove();
+            }, (15 + Math.random() * 10) * 1000); // Eliminar después de que termine su animación
+        }
+
+        // Crear una mariposa de fondo cada pocos segundos
+        setInterval(createBackgroundButterfly, 3000);
+
+
+        function triggerConfettiBurst() {
+            const confettiColors = ['#ff69b4', '#ffd700', '#ee82ee', '#ffc0cb', '#8ac926', 'white'];
+            const numConfetti = 80;
+            const body = document.body;
+
+            // Obtener la posición del botón para centrar la explosión
+            const buttonRect = document.getElementById('wish-button').getBoundingClientRect();
+            const centerX = buttonRect.left + buttonRect.width / 2;
+            const centerY = buttonRect.top + buttonRect.height / 2 + window.scrollY;
+
+            for (let i = 0; i < numConfetti; i++) {
+                const piece = document.createElement('div');
+                piece.classList.add('confetti-piece');
+                piece.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+
+                // Posición inicial centrada en el botón
+                piece.style.left = centerX + 'px';
+                piece.style.top = centerY + 'px';
+
+                // Usar variables CSS para la dirección y la velocidad de la animación
+                piece.style.setProperty('--x-end', (Math.random() - 0.5) * 500 + 'px'); // Desplazamiento X
+                piece.style.setProperty('--y-end', (Math.random() * 500) + 'px'); // Desplazamiento Y (sube y luego cae)
+                piece.style.setProperty('--rotation', Math.random() * 900 + 'deg'); // Rotación
+
+                body.appendChild(piece);
+
+                // Remover la pieza después de que termine la animación
+                setTimeout(() => piece.remove(), 2500); 
+            }
+        }
+        
+        // 9. ✨ Deseo de Cumpleaños Interactivo (MODIFICADO)
+        document.getElementById('wish-button').addEventListener('click', function() {
+            // 1. **¡Dispara el Confeti!**
+            triggerConfettiBurst(); 
+
+            // 2. Lógica para el mensaje
+            const wishMessage = document.getElementById('wish-message');
+            const button = this;
+
+            // Muestra el mensaje con animación
+            wishMessage.style.opacity = 0;
+            wishMessage.style.maxHeight = '500px';
+            wishMessage.classList.remove('hidden-message');
+            
+            setTimeout(() => {
+                wishMessage.style.opacity = 1;
+            }, 50); 
+            
+            // Deshabilita el botón
+            button.disabled = true;
+            button.textContent = '¡Deseo pedido! 🥳';
+            button.style.background = '#8ac926'; 
+        });
+
+    </script>
+</body>
+</html>
